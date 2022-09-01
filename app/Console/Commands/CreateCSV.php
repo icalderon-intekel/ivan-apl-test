@@ -12,7 +12,7 @@ class CreateCSV extends Command
      *
      * @var string
      */
-    protected $signature = 'csv:create';
+    protected $signature = 'csv:create  {--records=100000}';
 
     /**
      * The console command description.
@@ -28,7 +28,7 @@ class CreateCSV extends Command
      */
     public function handle()
     {
-        $numberOfRecords = 100000;
+        $numberOfRecords = $this->option('records');
         $bar = $this->output->createProgressBar($numberOfRecords);
         $csvHeader = [
             'name',
@@ -58,9 +58,12 @@ class CreateCSV extends Command
             $bar->finish();
             $this->newLine(2);
             $this->line('Done.');
+
+            return 0;
         } catch (\Throwable $th) {
             $this->error('Unhandled exception');
             $this->info($th->getMessage());
+            return 1;
         }
     }
 
