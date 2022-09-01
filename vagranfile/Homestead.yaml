@@ -1,0 +1,37 @@
+---
+ip: "192.168.56.56"
+memory: 2048
+cpus: 2
+provider: virtualbox
+
+authorize: ~/.ssh/icalderon_mobile.pub
+
+keys:
+    - ~/.ssh/icalderon_mobile
+
+folders:
+    - map: ~/Documentos/Proyectos/ivan-apl-test
+      to: /home/vagrant/ivan-apl-test
+
+sites:
+    - map: ivan-apl.test
+      to: /home/vagrant/ivan-apl-test/public
+
+databases:
+    - homestead
+
+features:
+    - mysql: true
+    - mariadb: false
+    - postgresql: false
+    - ohmyzsh: false
+    - webdriver: false
+
+services:
+    - enabled:
+        - "mysql"
+        - "redis-server"
+
+ports:
+   - send: 33060 # MySQL/MariaDB
+     to: 3306
